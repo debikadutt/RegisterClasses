@@ -15,11 +15,8 @@ const Form = () => {
      * Callback function called when form has no errors
      */
     function register() {
-        console.log('bm', isSubmitted);
         setIsSubmitted(true);
     }
-
-    console.log('subm', isSubmitted);
 
     return (
         <div className='section is-fullheight'>

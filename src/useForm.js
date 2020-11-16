@@ -11,7 +11,6 @@ const useForm = (callback, validate) => {
      * Call function callback once all errors are resolved and submit button is clicked
      */
     useEffect(() => {
-        console.log(errors);
         if (Object.keys(errors).length === 0 && isSubmitting) {
             setIsFinalDisplayVisible(true);
             callback();

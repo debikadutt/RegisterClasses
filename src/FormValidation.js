@@ -78,8 +78,8 @@ const validateDates = (areasOfStudy, values) => {
                 if (res === a.label) {
                     datesList.push(
                         [
-                            moment(a.startDate).format('YYYY-MM-DD'),
-                            moment(a.endDate).format('YYYY-MM-DD')
+                            moment(new Date(a.startDate)).format('YYYY-MM-DD'),
+                            moment(new Date(a.endDate)).format('YYYY-MM-DD')
                         ]
                     );
                 }
