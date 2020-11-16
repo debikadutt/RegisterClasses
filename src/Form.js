@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import useForm from './useForm';
 import validate from './FormValidation';
 import 'bulma/css/bulma.css';
-import { checkboxes } from './Data';
+import AreaOfStudyComponent from './AreaOfStudyComponent';
+
 import DisplayFinalInput from './DisplayFinalInput';
 
 const Form = () => {
@@ -10,18 +11,15 @@ const Form = () => {
 
     const [isSubmitted, setIsSubmitted] = useState(false);
 
+    /**
+     * Callback function called when form has no errors
+     */
     function register() {
+        console.log('bm', isSubmitted);
         setIsSubmitted(true);
     }
 
-    const clearIfFalse = (itemName) => {
-        if (checkedItems[itemName] === undefined || checkedItems[itemName] === false) {
-            const nodes = document.querySelectorAll(`[id=${itemName}]`);
-            nodes.forEach((node) => {
-                node.checked = false;
-            });
-        }
-    };
+    console.log('subm', isSubmitted);
 
     return (
         <div className='section is-fullheight'>
@@ -73,40 +71,12 @@ const Form = () => {
                                 </div>
                                 {errors.birthday && <p className='help is-danger'>{errors.birthday}</p>}
                             </div>
-                            <div className='field'>
-                                <label className='has-text-weight-semibold'>Area of study</label>
-                                <div className='control pl-5'>
-                                    {checkboxes.map((item) => (
-                                        <div className='pb-5' key={item.key}>
-                                            <label className='checkbox'>
-                                                <input type='checkbox' checked={checkedItems[item.name] || false} name={item.name} onChange={handleCheckboxChange} />
-                                                <i className='px-2'>{item.label}</i>
-                                            </label>
-                                            <div className='pl-5'>
-                                                {item.schedule.map((study) => (
-                                                    <span key={study.label}>
-                                                        <label className='radio'>
-                                                            <input
-                                                                type='radio'
-                                                                id={item.name}
-                                                                name={item.name}
-                                                                value={study.label || ''}
-                                                                disabled={checkedItems[item.name] ? false : true}
-                                                                onChange={handleChange}
-                                                                checked={clearIfFalse(item.name)}
-                                                            />
-                                                            <span className='px-2'>{study.label}</span>
-                                                        </label>
-                                                    </span>
-                                                ))}
-                                            </div>
-                                            {errors[`${item.name}`] && <p className='help is-danger'>{errors[`${item.name}`]}</p>}
-                                        </div>
-                                    ))}
-                                    {errors.study && <p className='help is-danger'>{errors.study}</p>}
-                                    {errors.dates && <p className='help is-danger'>{errors.dates}</p>}
-                                </div>
-                            </div>
+                            <AreaOfStudyComponent
+                                handleChange={handleChange}
+                                handleCheckboxChange={handleCheckboxChange}
+                                checkedItems={checkedItems}
+                                errors={errors}
+                            />
                             <button type='submit' className='button is-block is-info'>
                                 Confirm
                             </button>
@@ -114,7 +84,14 @@ const Form = () => {
                     </div>
                 </div>
             </div>
-            {Object.keys(errors).length === 0 && isSubmitted && <DisplayFinalInput values={values} checkedItems={checkedItems} clearForm={clearForm} isFinalDisplayVisible={isFinalDisplayVisible} />}
+            {/* Display formatted div with all form data after Confirm button is clicked */}
+            {Object.keys(errors).length === 0 && isSubmitted &&
+                <DisplayFinalInput
+                    values={values}
+                    checkedItems={checkedItems}
+                    clearForm={clearForm}
+                    isFinalDisplayVisible={isFinalDisplayVisible}
+                />}
         </div>
     );
 };

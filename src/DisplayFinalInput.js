@@ -1,7 +1,11 @@
 import React from 'react';
 
+/**
+ * Component to display final data for submission
+ * 
+ */
 const DisplayFinalInput = ({ values, checkedItems, clearForm, isFinalDisplayVisible }) => {
-    let selectedAreas = Object.keys(checkedItems);
+    const selectedAreas = Object.keys(checkedItems);
 
     return (
         <>
@@ -33,6 +37,7 @@ const DisplayFinalInput = ({ values, checkedItems, clearForm, isFinalDisplayVisi
                                         ))}
                                     </div>
                                 </div>
+                                {/* Clear form and hide this component after Submit button is clicked */}
                                 <button onClick={clearForm} className='button is-block is-info'>
                                     Submit
                                 </button>

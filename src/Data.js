@@ -1,4 +1,4 @@
-export const checkboxes = [
+export const data = [
     {
         name: 'sports',
         key: 'checkBox1',

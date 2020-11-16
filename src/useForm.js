@@ -7,13 +7,20 @@ const useForm = (callback, validate) => {
     const [checkedItems, setCheckedItems] = useState({});
     const [isFinalDisplayVisible, setIsFinalDisplayVisible] = useState(true);
 
+    /**
+     * Call function callback once all errors are resolved and submit button is clicked
+     */
     useEffect(() => {
+        console.log(errors);
         if (Object.keys(errors).length === 0 && isSubmitting) {
             setIsFinalDisplayVisible(true);
             callback();
         }
     }, [errors]);
 
+    /**
+     * Remove radio button data is checkbox is un-selected
+     */
     useEffect(() => {
         if (checkedItems) {
             let checkedKeys = Object.keys(checkedItems);
@@ -37,6 +44,10 @@ const useForm = (callback, validate) => {
         setValues((values) => ({ ...values, [event.target.name]: event.target.value }));
     };
 
+    /**
+     * Function to handle checkbox change
+     * @param event 
+     */
     const handleCheckboxChange = (event) => {
         setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
     };
