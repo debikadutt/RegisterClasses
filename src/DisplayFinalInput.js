@@ -17,11 +17,33 @@ const DisplayFinalInput = ({ values, checkedItems, clearForm, isFinalDisplayVisi
         return res;
     };
 
-    const output = {
+    const identityObject = {
         "name": `${values.name}`,
         "email": `${values.email}`,
-        "birthday": `${values.birthday}`,
+        "birthday": `${values.birthday}`
+    }
+
+    const output = {
+        ...identityObject,
         ...getCourseData()
+    };
+
+    // Logs the json object to the console.
+    const logOutput = () => {
+        let jsonOutput = {};
+        let res = [];
+        let getCourseDataObj = getCourseData();
+        Object.keys(getCourseDataObj).forEach(item => {
+            res.push({ [item] : getCourseDataObj[item] });
+        });
+
+        jsonOutput = {
+            ...identityObject,
+            "schedule": [
+                ...res
+            ]
+        };
+        console.log('logOutput', jsonOutput);
     };
 
     return (
@@ -41,7 +63,7 @@ const DisplayFinalInput = ({ values, checkedItems, clearForm, isFinalDisplayVisi
                                     </span>
                                 ))}
                                 {/* Clear form and hide this component after Submit button is clicked */}
-                                <button onClick={clearForm} className='button is-block is-info'>
+                                <button onClick={() => { clearForm(); logOutput(); }} className='button is-block is-info'>
                                     Submit
                                 </button>
                             </div>
